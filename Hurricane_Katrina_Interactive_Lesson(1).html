@@ -1,0 +1,61 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Hurricane Katrina — Interactive Lesson</title>
+<style>
+body{font-family:Arial;margin:0;background:#eef5f7;color:#26354a}.wrap{max-width:1000px;margin:auto;padding:25px}
+header,.card{background:white;border-radius:20px;padding:24px;margin:16px 0;box-shadow:0 7px 22px #00000010}
+header{background:#26354a;color:white}h1{margin:0 0 6px}h2{margin-top:0}.hint{color:#697580}
+.q{border:2px solid #dde4e8;border-radius:13px;padding:14px;margin:10px 0;background:#fbfcfd}
+select,input{padding:10px;border:2px solid #d8e0e5;border-radius:9px;width:100%;box-sizing:border-box}
+.correct{border-color:#62a678!important;background:#e7f4ea}.wrong{border-color:#c56868!important;background:#fae5e5}
+button{padding:11px 17px;border:0;border-radius:10px;font-weight:bold;margin:8px 6px 0 0;cursor:pointer}.primary{background:#26354a;color:white}.secondary{background:#e7edf0}
+.score{font-size:18px;font-weight:bold;margin-top:12px}.wordbank{background:#f7e7a9;padding:13px;border-radius:12px;line-height:1.7}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mi{border:2px solid #dce3e7;padding:13px;border-radius:12px;cursor:pointer}.mi.sel{background:#dceaf5;border-color:#527a9d}
+.story{line-height:2}.story input{width:135px;display:inline-block}.speak{background:#ddebed;padding:15px;border-radius:12px;line-height:1.5}
+@media(max-width:700px){.match{grid-template-columns:1fr}.story input{width:110px}}
+</style></head><body><div class="wrap">
+<header><h1>HURRICANE KATRINA</h1><div>Grammar + old vocabulary + new vocabulary · interactive practice</div></header>
+
+<div class="card"><h2>1. Old vocabulary — Weather & Disasters</h2><p class="hint">Choose the best word. No word list.</p><div id="old"></div><button class="primary" onclick="checkSelect('oldSel','oldScore')">Check answers</button><div id="oldScore" class="score"></div></div>
+
+<div class="card"><h2>2. Grammar — Past Simple or Past Perfect?</h2><p class="hint"><b>Past Simple</b> = main event. <b>Past Perfect</b> = an earlier event before another past event.</p><div id="past"></div><button class="primary" onclick="checkSelect('pastSel','pastScore')">Check answers</button><button class="secondary" onclick="renderPast()">Try again</button><div id="pastScore" class="score"></div></div>
+
+<div class="card"><h2>3. Grammar Challenge — Three Past Tenses</h2><p class="hint">Think: event / earlier result / activity continuing before another event.</p><div id="three"></div><button class="primary" onclick="checkSelect('threeSel','threeScore')">Check answers</button><div id="threeScore" class="score"></div></div>
+
+<div class="card"><h2>4. New vocabulary — Match</h2><p class="hint">Click a word, then click its meaning.</p><div class="match" id="match"></div><button class="primary" onclick="checkMatch()">Check answers</button><button class="secondary" onclick="renderMatch()">Reset</button><div id="matchScore" class="score"></div></div>
+
+<div class="card"><h2>5. New vocabulary in context</h2><p class="hint">Complete the sentences. Try to use the word bank only when needed.</p>
+<div class="wordbank">residents · declared a state of emergency · evacuate · storm surge · below sea level · looting · struggle to cope · desperate · rebuild · slow recovery</div>
+<div id="new"></div><button class="primary" onclick="checkInput('newInput','newScore')">Check answers</button><div id="newScore" class="score"></div></div>
+
+<div class="card"><h2>6. Hurricane Katrina — Timeline Challenge</h2><p class="hint">Complete the timeline, then retell it aloud. Try to use 3 new words + 2 old words + Past Perfect.</p>
+<div class="story">On 23 August 2005, a tropical storm <input class="storyIn" data-a="formed"> over the Bahamas.<br>
+By 25 August, it <input class="storyIn" data-a="had strengthened"> and become Hurricane Katrina.<br>
+Many residents <input class="storyIn" data-a="had left"> the city before the worst flooding <input class="storyIn" data-a="began">.<br>
+The storm surge <input class="storyIn" data-a="smashed"> through the levees and the waters <input class="storyIn" data-a="rose">.<br>
+Emergency services <input class="storyIn" data-a="struggled"> to cope, while people were <input class="storyIn" data-a="desperate"> for help.<br>
+Later, engineers <input class="storyIn" data-a="pumped"> the water out and the city began a slow <input class="storyIn" data-a="recovery">.</div>
+<button class="primary" onclick="checkInput('storyIn','storyScore')">Check story</button><div id="storyScore" class="score"></div>
+<div class="speak"><b>Speaking:</b> Imagine you were in New Orleans in 2005. Tell your story in 6–8 sentences. Use <b>before, after, when, had + V3, flood, storm surge, residents, emergency services, struggle to cope, recovery</b>.</div></div>
+
+<div class="card"><h2>7. Exit Ticket</h2><ol><li>What is a <b>storm surge</b>?</li><li>What does <b>evacuate</b> mean?</li><li>What does <b>struggle to cope</b> mean?</li><li>Make one sentence with <b>had + V3</b> about Katrina.</li><li>Name one old weather/disaster word from today's warm-up.</li></ol></div>
+</div>
+<script>
+const old=[["The city was covered by water after a huge ______.","flood","hail","thick fog"],["A violent tropical storm with very strong winds is a ______.","hurricane","drought","bruise"],["Small balls of ice falling from the sky are ______.","hail","fog","flood"],["A spinning column of air that can destroy buildings is a ______.","tornado","drought","hurricane"],["Very thick cloud near the ground is ______.","thick fog","hail","lightning"]];
+function render(id,data,cls){let a=document.getElementById(id);a.innerHTML="";data.forEach((q,i)=>a.innerHTML+=`<div class="q"><b>${i+1}. ${q[0]}</b><br><br><select class="${cls}" data-a="${q[1]}"><option value="">Choose...</option><option>${q[1]}</option><option>${q[2]}</option><option>${q[3]}</option></select></div>`)}
+render("old",old,"oldSel");
+const past=[["By the time Katrina reached New Orleans, it ______ into a powerful hurricane.","had strengthened","strengthened"],["The mayor ______ a state of emergency.","declared","had declared"],["Many residents ______ the city before the worst flooding began.","had left","left"],["The waters ______ rapidly.","rose","had risen"],["Emergency services ______ to cope.","struggled","had struggled"],["The military ______ to get food and water to people.","began","had begun"]];
+function renderPast(){render("past",past.map(q=>[q[0],q[1],q[2],q[2]]),"pastSel");document.getElementById("pastScore").textContent=""}
+renderPast();
+const three=[["People ______ for help for hours before emergency services arrived.","had been begging","had begged","begged"],["The hurricane ______ the city and caused enormous damage.","hit","had hit","had been hitting"],["The city ______ flooding for years before Katrina arrived.","had been facing","had faced","faced"],["By the time the waters rose, many residents ______.","had evacuated","evacuated","had been evacuating"],["The army engineers ______ the last flood water out after 43 days.","pumped","had pumped","had been pumping"],["The community ______ itself for years after the disaster.","had been rebuilding","had rebuilt","rebuilt"]];
+render("three",three,"threeSel");
+function checkSelect(cls,id){let n=0,a=document.querySelectorAll("."+cls);a.forEach(x=>{if(x.value===x.dataset.a){x.className=cls+" correct";n++}else x.className=cls+" wrong"});document.getElementById(id).textContent=`Score: ${n}/${a.length}`}
+const vocab=[["strengthen","become stronger"],["residents","people who live in a place"],["evacuate","move people away from danger"],["storm surge","a sudden rise of sea water caused by a storm"],["below sea level","lower than the level of the sea"],["levee","a wall built to stop water flooding an area"],["looting","stealing during disorder"],["struggle to cope","find it difficult to deal with a situation"],["desperate","urgently needing help"],["rebuild","build again after destruction"]];
+let selected=null,matches={};
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function renderMatch(){selected=null;matches={};let a=document.getElementById("match");a.innerHTML="";shuffle(vocab).forEach(x=>{let d=document.createElement("div");d.className="mi";d.dataset.w=x[0];d.innerHTML="<b>WORD</b><br>"+x[0];d.onclick=()=>{selected=x[0];document.querySelectorAll(".mi").forEach(z=>z.classList.remove("sel"));d.classList.add("sel")};a.appendChild(d)});shuffle(vocab).forEach(x=>{let d=document.createElement("div");d.className="mi";d.dataset.a=x[0];d.innerHTML="<b>MEANING</b><br>"+x[1];d.onclick=()=>{if(selected){matches[selected]=x[0];selected=null;document.querySelectorAll(".mi").forEach(z=>z.classList.remove("sel"))}};a.appendChild(d)})}
+function checkMatch(){let n=0;document.querySelectorAll("#match .mi").forEach(x=>{if(x.dataset.w){let ok=matches[x.dataset.w]===x.dataset.w;x.classList.remove("correct","wrong");x.classList.add(ok?"correct":"wrong");if(ok)n++}});document.getElementById("matchScore").textContent=`Score: ${n}/10`}
+renderMatch();
+const newQs=[["Katrina became stronger, so it began to ______.","strengthen"],["The people who live in New Orleans are its ______.","residents"],["The mayor ______ after the situation became dangerous.","declared a state of emergency"],["People were told to ______ the city.","evacuate"],["The hurricane caused a huge ______ that flooded the city.","storm surge"],["Parts of New Orleans were ______.","below sea level"],["There was widespread ______.","looting"],["Emergency services ______ with the disaster.","struggle to cope"],["Many people were ______ for help.","desperate"],["The city had to ______ after the destruction.","rebuild"]];
+function renderNew(){let a=document.getElementById("new");a.innerHTML="";newQs.forEach((q,i)=>a.innerHTML+=`<div class="q"><b>${i+1}. ${q[0]}</b><br><br><input class="newInput" data-a="${q[1]}" placeholder="Type the answer"></div>`)}
+renderNew();
+function checkInput(cls,id){let n=0,a=document.querySelectorAll("."+cls);a.forEach(x=>{let ok=x.value.trim().toLowerCase()===x.dataset.a.toLowerCase();x.classList.remove("correct","wrong");x.classList.add(ok?"correct":"wrong");if(ok)n++});document.getElementById(id).textContent=`Score: ${n}/${a.length}`}
+</script></body></html>
